@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Framework Documentation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        header {
+            background-color: #00468b;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        header img {
+            max-height: 50px;
+            display: block;
+            margin: 0 auto 10px;
+        }
+        nav {
+            width: 250px;
+            background-color: #eeeeee;
+            border-right: 1px solid #ccc;
+            padding: 1rem;
+            height: 100vh;
+            overflow-y: auto;
+        }
+        nav h3 {
+            color: #00468b;
+            margin-bottom: 0.5rem;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        nav ul li {
+            margin: 0.5rem 0;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: #00468b;
+            font-weight: bold;
+        }
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+        nav .search {
+            margin-bottom: 1rem;
+        }
+        nav .search input {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        main {
+            flex-grow: 1;
+            padding: 2rem;
+        }
+        section {
+            margin-bottom: 2rem;
+        }
+        section h2 {
+            color: #00468b;
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 0.5rem;
+        }
+        code {
+            background-color: #eaeaea;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 1rem;
+            border-left: 4px solid #00468b;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="_images/logo.png" alt="Framework Logo">
+        <br>Global Framework - Documentation
+    </header>
+    <nav>
+        <div class="search">
+            <input type="text" placeholder="Quick search...">
+        </div>
+        <h3>Table of Contents</h3>
+        <ul>
+            <li><a href="main.html">Back to Main</a></li>
+            <li><a href="framework.html">Framework</a></li>
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#host-management">Host Management</a></li>
+            <li><a href="#function-management">Function Management</a></li>
+        </ul>
+    </nav>
+    <main>
+        <section id="overview">
+            <h2>Overview</h2>
+            <p>The Global Framework includes essential functions for managing hosts, functions, and timers. This documentation provides details for the following core functionalities:</p>
+            <ul>
+                <li>Host Management: <code>register_host</code>, <code>gHost</code>, <code>getDefaultHost</code>, <code>registerAllHosts</code></li>
+                <li>Function Management: <code>register_gFunc</code>, <code>gFunc</code></li>
+            </ul>
+        </section>
+        <section id="host-management">
+            <h2>Host Management</h2>
+            <h3>register_host</h3>
+            <p>Creates a global tie-in for processors and Secure Platform devices.</p>
+            <pre><code>def register_host(host_name, device_class='Processor', description='', header='', text_return=None):
+    """Register a host for global access."""
+            </code></pre>
+            <h3>gHost</h3>
+            <p>Retrieve a registered host from the global database.</p>
+            <pre><code>def gHost(host_to_retrieve):
+    """Retrieve a host by its name."""
+            </code></pre>
+            <h3>getDefaultHost</h3>
+            <p>Retrieve the default UIHost from the configuration.</p>
+            <pre><code>def getDefaultHost(return_as_alias=False):
+    """Get the default host or its alias."""
+            </code></pre>
+            <h3>registerAllHosts</h3>
+            <p>Register multiple hosts using a list of host tuples.</p>
+            <pre><code>def registerAllHosts(list_of_host_tuples, text_return=None):
+    """Register all specified hosts."""
+            </code></pre>
+        </section>
+        <section id="function-management">
+            <h2>Function Management</h2>
+            <h3>register_gFunc</h3>
+            <p>Registers a function globally for recall from any function file.</p>
+            <pre><code>def register_gFunc(function, description=''):
+    """Register a global function."""
+            </code></pre>
+            <h3>gFunc</h3>
+            <p>Call a globally registered function by its ID.</p>
+            <pre><code>def gFunc(function_id, *args, **kwargs):
+    """Invoke a global function."""
+            </code></pre>
+        </section>
+    </main>
+</body>
+</html>

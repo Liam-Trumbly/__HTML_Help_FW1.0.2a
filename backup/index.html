@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SP Framework Help File</title>
+    <link rel="stylesheet" href="../v0.2/assets/styles.css">
+    <script>
+        // ! Function to search through HTML files and show results in the main window
+        function searchTopics() {
+            let input = document.getElementById('search'); // ! Get the search input
+            let filter = input.value.toLowerCase(); // ! Convert input to lowercase for case-insensitive search
+            let results = []; // ! Array to store search results
+
+            // ! List of all available topics, simulating a folder with file names and content
+            let topics = [
+                {name: 'About The Framework', link: 'about.html', content: 'Details about the framework...'},
+                {name: 'Defining a Sandbox', link: 'sandbox.html', content: 'Learn how to define a sandbox...'},
+                {name: 'GUI Best Practices', link: 'gui.html', content: 'Best practices for GUI...'},
+                {name: 'Framework Essentials', link: 'essentials.html', content: 'Overview of framework essentials...'},
+                {name: 'Boot Agent', link: 'boot-agent.html', content: 'Information on boot agent...'},
+                {name: 'Matrix Configuration', link: 'matrix.html', content: 'Configuring the matrix...'},
+                {name: 'Device Configuration', link: 'devices.html', content: 'Configuring devices...'},
+                {name: 'Sandbox Config', link: 'sandbox-config.html', content: 'Configuring sandbox settings...'}
+            ];
+
+            // ! Loop through all topics and check if any part of the content matches the search query
+            topics.forEach(function(topic) {
+                if (topic.name.toLowerCase().includes(filter) || topic.content.toLowerCase().includes(filter)) {
+                    results.push(topic); // ! Add matching topic to results array
+                }
+            });
+
+            // ! Display results in the main content window
+            displayResults(results);
+        }
+
+        // ! Function to toggle submenus in the table of contents on click
+        function toggleSubmenu(event) {
+            let submenu = event.target.nextElementSibling; // ! Get the submenu
+            if (submenu && submenu.tagName === 'UL') { // ! Check if it's a submenu
+                submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block'; // ! Toggle display
+            }
+        }
+
+        // ! Add event listeners to all list items that have submenus
+        window.onload = function() {
+            const tocLinks = document.querySelectorAll('.sidebar ul li > a'); // ! Get all anchor links in the TOC
+            tocLinks.forEach(link => {
+                // ! Add click event to toggle submenu visibility
+                link.addEventListener('click', toggleSubmenu);
+            });
+        }
+
+        // ! Function to display the search results in the main content window
+        function displayResults(results) {
+            let contentDiv = document.querySelector('.content'); // ! Get the content div
+            contentDiv.innerHTML = ''; // ! Clear any previous results
+
+            if (results.length === 0) {
+                contentDiv.innerHTML = '<p>No results found.</p>'; // ! Show message if no results
+            } else {
+                let resultsHtml = '<h2>Search Results:</h2><ul>';
+                // ! Generate HTML for each result
+                results.forEach(function(result) {
+                    resultsHtml += `<li><a href="${result.link}">${result.name}</a><p>${result.content}</p></li>`;
+                });
+                resultsHtml += '</ul>';
+                contentDiv.innerHTML = resultsHtml; // ! Update the content div with search results
+            }
+        }
+    </script>
+    <style>
+        /* ! Style for the submenu items */
+        .sidebar ul ul {
+            display: none; /* ! Initially hide all submenus */
+            padding-left: 20px; /* ! Indentation for submenu items */
+            font-size: 0.9em; /* ! Smaller font for the submenu */
+        }
+
+        /* ! Optional: style for submenu links to make them more distinct */
+        .sidebar ul ul li a {
+            font-size: 0.9em; /* ! Smaller font size for better distinction */
+            color: #555; /* ! Subtle color for submenu links */
+        }
+
+        .sidebar ul li a:hover {
+            font-weight: bold; /* ! Make parent item bold on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="../v0.2/_images/logo.png" alt="Framework Logo">
+                </a>
+            </div>
+
+            <h2>Table of Contents</h2>
+            <ul>
+                <li>
+                    <a href="about.html">About The Framework</a>
+                </li>
+                <li>
+                    <a href="sandbox.html">Defining a Sandbox</a>
+                    <!-- ! Submenu -->
+                    <ul>
+                        <li><a href="sandbox-advanced.html">Advanced Sandbox Setup</a></li>
+                        <li><a href="sandbox-tips.html">Sandbox Tips</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="gui.html">GUI Best Practices</a>
+                    <!-- ! Submenu -->
+                    <ul>
+                        <li><a href="gui-customization.html">GUI Customization</a></li>
+                        <li><a href="gui-design.html">GUI Design Principles</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a>Framework Essentials</a>
+                    <!-- ! Submenu -->
+                    <ul>
+                        <li><a href="essentials.html#host-management">Host Management</a></li>
+                        <li><a href="essentials.html#global-functions">Global Functions</a></li>
+                        <li><a href="essentials.html#global-timers">Global Timers</a></li>
+                    </ul>
+                </li>
+                <li><a href="boot-agent.html">Boot Agent</a></li>
+                <li><a href="matrix.html">Matrix Configuration</a></li>
+                <li><a href="devices.html">Device Configuration</a></li>
+                <li><a href="sandbox-config.html">Sandbox Config</a></li>
+            </ul>
+            <h3>Quick Search</h3>
+            <!-- ! Call the searchTopics function when the user types in the search input -->
+            <input type="text" id="search" placeholder="Search..." onkeyup="searchTopics()">
+        </aside>
+
+        <main class="content">
+            <h1>Welcome to SP Framework Help File</h1>
+            <p>Select a topic from the left menu.</p>
+        </main>
+    </div>
+</body>
+</html>

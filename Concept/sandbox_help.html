@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Text Buffer Help</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+        }
+        main {
+            padding: 1rem 2rem;
+        }
+        section {
+            margin-bottom: 2rem;
+        }
+        h1, h2 {
+            color: #4CAF50;
+        }
+        code {
+            background-color: #eaeaea;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            background-color: #333;
+            color: white;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Dynamic Text Buffer Help</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Overview</h2>
+            <p>The <code>dynamic_text_buffer</code> class is designed to manage dynamic text buffers with optional UI integration and color settings. It allows seamless updates to associated UI hosts and supports validation for color management.</p>
+        </section>
+
+        <section>
+            <h2>Initialization</h2>
+            <p>To create an instance of the <code>dynamic_text_buffer</code> class, use the following syntax:</p>
+            <pre><code>buffer = dynamic_text_buffer(name="buffer_name", alias="optional_alias", UIHosts=["host1", "host2"], db=custom_db)</code></pre>
+            <ul>
+                <li><strong>name</strong>: Unique identifier for the buffer (required).</li>
+                <li><strong>alias</strong>: Alias for UI updates (optional).</li>
+                <li><strong>UIHosts</strong>: List of UI hosts for updates (optional).</li>
+                <li><strong>db</strong>: Database to register the buffer (default: <code>var.dynamic_text_db</code>).</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Methods</h2>
+            <h3><code>update()</code></h3>
+            <p>Triggers an update to push the current text buffer to the associated UI hosts.</p>
+
+            <h3><code>self_register()</code></h3>
+            <p>Registers the buffer in the specified database. If a duplicate record exists, the registration is skipped, and a debug message is logged.</p>
+        </section>
+
+        <section>
+            <h2>Properties</h2>
+            <h3><code>text_buffer</code></h3>
+            <p>
+                <strong>Getter:</strong> Retrieves the current text buffer.<br>
+                <strong>Setter:</strong> Updates the text buffer. Ensures the value is a string and triggers an update.
+            </p>
+
+            <h3><code>color</code></h3>
+            <p>
+                <strong>Getter:</strong> Retrieves the current text color.<br>
+                <strong>Setter:</strong> Sets the text color. If the color is invalid, reverts to the default color and logs a debug message.
+            </p>
+        </section>
+
+        <section>
+            <h2>Debug Mode</h2>
+            <p>Debug messages are enabled by default. To disable debug mode, set <code>debug = False</code> on the buffer instance.</p>
+        </section>
+
+        <section>
+            <h2>Example Usage</h2>
+            <pre><code>buffer = dynamic_text_buffer(name="example", alias="exampleAlias", UIHosts=["host1"], db={})
+
+buffer.text_buffer = "Hello, World!"
+print(buffer.text_buffer)  # Outputs: Hello, World!
+
+buffer.color = "red"
+print(buffer.color)  # Outputs: red
+</code></pre>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 Dynamic Text Buffer Help</p>
+    </footer>
+</body>
+</html>

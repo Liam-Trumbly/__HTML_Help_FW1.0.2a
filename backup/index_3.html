@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SP Framework Help File</title>
+    <link rel="stylesheet" href="../v0.2/assets/styles.css">
+    <script>
+        // ! Function to toggle submenus in the table of contents on click
+        function toggleSubmenu(event) {
+            let submenu = event.target.nextElementSibling; // ! Get the submenu
+            if (submenu && submenu.tagName === 'UL') { // ! Check if it's a submenu
+                submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block'; // ! Toggle display
+            }
+        }
+
+        // ! Add event listeners to all list items that have submenus
+        window.onload = function() {
+            const tocLinks = document.querySelectorAll('.sidebar ul li > a'); // ! Get all anchor links in the TOC
+            tocLinks.forEach(link => {
+                // ! Add click event to toggle submenu visibility
+                link.addEventListener('click', toggleSubmenu);
+            });
+        }
+    </script>
+    <style>
+        /* ! Style for the submenu items */
+        .sidebar ul ul {
+            display: none; /* ! Initially hide all submenus */
+            padding-left: 20px; /* ! Indentation for submenu items */
+            font-size: 0.9em; /* ! Smaller font for the submenu */
+        }
+
+        /* ! Optional: style for submenu links to make them more distinct */
+        .sidebar ul ul li a {
+            font-size: 0.9em; /* ! Smaller font size for better distinction */
+            color: #555; /* ! Subtle color for submenu links */
+        }
+
+        .sidebar ul li a:hover {
+            font-weight: bold; /* ! Make parent item bold on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="../v0.2/_images/logo.png" alt="Framework Logo">
+                </a>
+            </div>
+
+            <h2>Table of Contents</h2>
+            <ul>
+                <li>
+                    <a href="about.html">About The Framework</a>
+                </li>
+                <li>
+                    <a href="sandbox.html">Defining a Sandbox</a>
+                    <!-- ! Submenu -->
+                    <ul>
+                        <li><a href="sandbox-advanced.html">Advanced Sandbox Setup</a></li>
+                        <li><a href="sandbox-tips.html">Sandbox Tips</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="gui.html">GUI Best Practices</a>
+                    <!-- ! Submenu -->
+                    <ul>
+                        <li><a href="gui-customization.html">GUI Customization</a></li>
+                        <li><a href="gui-design.html">GUI Design Principles</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="essentials.html">Framework Essentials?</a>
+                    <!-- ! Submenu -->
+                    <ul>
+                        <li><a href="essentials.html#host-management">Host Management</a></li>
+                        <li><a href="essentials.html#global-functions">Global Functions</a></li>
+                        <li><a href="essentials.html#global-timers">Global Timers</a></li>
+                    </ul>
+                </li>
+                <li><a href="boot-agent.html">Boot Agent</a></li>
+                <li><a href="matrix.html">Matrix Configuration</a></li>
+                <li><a href="devices.html">Device Configuration</a></li>
+                <li><a href="sandbox-config.html">Sandbox Config</a></li>
+            </ul>
+            <h3>Quick Search</h3>
+            <!-- ! Call the searchTopics function when the user types in the search input -->
+            <input type="text" id="search" placeholder="Search..." onkeyup="searchTopics()">
+        </aside>
+
+        <main class="content">
+            <h1>Welcome to SP Framework Help File</h1>
+            <p>Select a topic from the left menu.</p>
+        </main>
+    </div>
+</body>
+</html>

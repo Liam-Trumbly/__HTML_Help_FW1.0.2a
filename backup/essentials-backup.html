@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SP Framework Help File</title>
+    <link rel="stylesheet" href="../v0.2/assets/styles.css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="../v0.2/_images/logo.png" alt="Framework Logo">
+            </div>
+            <h2>Table of Contents</h2>
+            <ul>
+                <li><a href="about.html">About The Framework</a></li>
+                <li><a href="sandbox.html">Defining a Sandbox</a></li>
+                <li><a href="gui.html">GUI Best Practices</a></li>
+                <li><a href="essentials.html">Framework Essentials</a></li>
+                <li><a href="boot-agent.html">Boot Agent</a></li>
+                <li><a href="matrix.html">Matrix Configuration</a></li>
+                <li><a href="devices.html">Device Configuration</a></li>
+                <li><a href="sandbox-config.html">Sandbox Config</a></li>
+            </ul>
+            <h3>Quick Search</h3>
+            <input type="text" id="search" placeholder="Search...">
+        </aside>
+
+        <main class="content">
+            <h1>Framework Essentials</h1>
+            <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Framework Essentials</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 8px; }
+        th { background-color: #f4f4f4; }
+    </style>
+</head>
+<body>
+    <h1>Framework Essentials</h1>
+   <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Framework Essentials</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; table-layout: fixed; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #f4f4f4; }
+        th:first-child, td:first-child { width: 30%; }
+        th:last-child, td:last-child { width: 70%; }
+    </style>
+</head>
+<body>
+    <h1>Framework Essentials</h1>
+    <h2>Overview</h2>
+    <p>The SP Framework provides a structured approach to managing AV control systems, ensuring consistency and scalability. This section covers essential functions and their descriptions, categorized for ease of reference.</p>
+
+    <h2>Host Management</h2>
+    <table>
+        <tr><th>Function</th><th>Description</th></tr>
+        <tr><td>register_host</td><td>Creates a global tie-in for processors and SPDs.</td></tr>
+        <tr><td>gHost</td><td>Retrieves a host from the host database.</td></tr>
+        <tr><td>getDefaultHost</td><td>Retrieves the default UIHost from the configuration.</td></tr>
+        <tr><td>registerAllHosts</td><td>Registers all hosts defined in the sandbox configuration.</td></tr>
+        <tr><td>anyUI_Host</td><td>Retrieves the UI host from the tlpDB based on the provided ui_name.</td></tr>
+    </table>
+
+    <h2>Global Functions</h2>
+    <table>
+        <tr><th>Function</th><th>Description</th></tr>
+        <tr><td>register_gFunc</td><td>Creates a global tie-in for functions, allowing them to be recalled from any function file.</td></tr>
+        <tr><td>gFunc</td><td>Calls a global function with the given ID and passes in arguments and keyword arguments.</td></tr>
+        <tr><td>gFuncLoader</td><td>Loads a global function from one file (including arguments & kwargs) and executes it in another.</td></tr>
+    </table>
+
+    <h2>Global Timers</h2>
+    <table>
+        <tr><th>Function</th><th>Description</th></tr>
+        <tr><td>register_gTimer</td><td>Creates a global tie-in for Extron Timer Class.</td></tr>
+        <tr><td>gTimer</td><td>Calls a global timer.</td></tr>
+    </table>
+
+    <h2>UI Hosts / TLPs</h2>
+    <table>
+        <tr><th>Function</th><th>Description</th></tr>
+        <tr><td>TLP_Loader</td><td>Loads a series of TLP Panels by alias.</td></tr>
+        <tr><td>getDefaultUIHost</td><td>Retrieves the default UIHost (TLP) from the framework configuration.</td></tr>
+        <tr><td>getUIHostAlias</td><td>Returns the device alias of a button's TLP (UIHost).</td></tr>
+    </table>
+
+    <h2>Debugging & Console Tools</h2>
+    <table>
+        <tr><th>Function</th><th>Description</th></tr>
+        <tr><td>dvTrace</td><td>Prints to the standard print window and to a TCP port for debugging, formatting, and filtering.</td></tr>
+        <tr><td>consoleWindow</td><td>Provides a scrollable text window for reviewing logs and debugging messages.</td></tr>
+        <tr><td>rolling_text_scroll</td><td>Scrolls text for boot-up, auto-dumping old lines when a threshold is met.</td></tr>
+        <tr><td>BootTimerPunchIn</td><td>Records the start time of a boot timer for a given page.</td></tr>
+        <tr><td>BootTimerPunchOut</td><td>Records the completion of the boot tracking process.</td></tr>
+    </table>
+
+    <h2>UI Element Management</h2>
+    <table>
+        <tr><th>Function</th><th>Description</th></tr>
+        <tr><td>MultiButtonMake</td><td>Creates a button with the specified name on each desired UIHost panel in the tlpDB.</td></tr>
+        <tr><td>MultiLevelMake</td><td>Creates a level control on all UIHost panels where applicable.</td></tr>
+        <tr><td>MultiSliderMake</td><td>Creates a slider control on all UIHost panels where applicable.</td></tr>
+        <tr><td>MultiLabelMake</td><td>Creates a label on each UIHost panel.</td></tr>
+    </table>
+
+    <h2>ME Set Tools</h2>
+    <table>
+        <tr><th>Function</th><th>Description</th></tr>
+        <tr><td>LocalMESetCurrent</td><td>Sets the currently pressed MESet to "Set Current" based on the provided button object.</td></tr>
+        <tr><td>MultiMESetCurrent</td><td>Iterates through the meDB and sets all MESets with the specified name to the current button.</td></tr>
+        <tr><td>MultiMESetStates</td><td>Sets the state for buttons within specified MESets across various panels.</td></tr>
+        <tr><td>meDB_GetCurrent</td><td>Retrieves the current button object from the specified MESet in the meDB.</td></tr>
+    </table>
+
+    <h2>Page & Popup Navigation</h2>
+    <table>
+        <tr><th>Function</th><th>Description</th></tr>
+        <tr><td>MultiShowPage</td><td>Shows a specified page on all panels within the given UI hosts.</td></tr>
+        <tr><td>MultiShowPopup</td><td>Displays a popup on the specified UI hosts.</td></tr>
+        <tr><td>MultiHidePopup</td><td>Hides a specified popup on selected UI hosts.</td></tr>
+        <tr><td>MultiHideAllPopups</td><td>Hides all popups across defined UI hosts.</td></tr>
+        <tr><td>MultiHidePopupGroup</td><td>Hides a specific group of popups across UI hosts.</td></tr>
+    </table>
+
+    <h2>Sound Management</h2>
+    <table>
+        <tr><th>Function</th><th>Description</th></tr>
+        <tr><td>MultiPlaySound</td><td>Plays a specified sound on all panels within the given UI hosts.</td></tr>
+    </table>
+</body>
+</html>
+
+
+</body>
+</html>
+
+
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Text Buffer Documentation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        header {
+            background-color: #00468b;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        nav {
+            width: 250px;
+            background-color: #eeeeee;
+            border-right: 1px solid #ccc;
+            padding: 1rem;
+            height: 100vh;
+            overflow-y: auto;
+        }
+        nav h3 {
+            color: #00468b;
+            margin-bottom: 0.5rem;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        nav ul li {
+            margin: 0.5rem 0;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: #00468b;
+            font-weight: bold;
+        }
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+        nav .search {
+            margin-bottom: 1rem;
+        }
+        nav .search input {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        main {
+            flex-grow: 1;
+            padding: 2rem;
+        }
+        section {
+            margin-bottom: 2rem;
+        }
+        section h2 {
+            color: #00468b;
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 0.5rem;
+        }
+        code {
+            background-color: #eaeaea;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 1rem;
+            border-left: 4px solid #00468b;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+    <img src="_images/logo.png" alt="Logo" style="max-height: 50px; display: block; margin: 0 auto;" />
+    <br>Help File
+</header>
+    <nav>
+        <div class="search">
+            <input type="text" placeholder="Quick search...">
+        </div>
+        <h3>Table of Contents</h3>
+        <ul>
+            <li><a href="framework.html">Framework</a>&nbsp;</li>
+            <li><a href="#overview">Overview</a></li>
+<li><a href="#initialization">Initialization</a></li>
+            <li><a href="#methods">Methods</a></li>
+            <li><a href="#properties">Properties</a></li>
+            <li><a href="#examples">Examples</a></li>
+        </ul>
+    </nav>
+    <main>
+        <section id="overview">
+            <h2>Overview</h2>
+            <p>The <code>dynamic_text_buffer</code> class is designed to manage dynamic text buffers with optional UI integration and color settings. It allows seamless updates to associated UI hosts and supports validation for color management.</p>
+        </section>
+        <section id="initialization">
+            <h2>Initialization</h2>
+            <p>To create an instance of the <code>dynamic_text_buffer</code> class, use the following syntax:</p>
+            <pre><code>buffer = dynamic_text_buffer(name="buffer_name", alias="optional_alias", UIHosts=["host1", "host2"], db=custom_db)</code></pre>
+            <ul>
+                <li><strong>name</strong>: Unique identifier for the buffer (required).</li>
+                <li><strong>alias</strong>: Alias for UI updates (optional).</li>
+                <li><strong>UIHosts</strong>: List of UI hosts for updates (optional).</li>
+                <li><strong>db</strong>: Database to register the buffer (default: <code>var.dynamic_text_db</code>).</li>
+            </ul>
+        </section>
+        <section id="methods">
+            <h2>Methods</h2>
+            <h3><code>update()</code></h3>
+            <p>Triggers an update to push the current text buffer to the associated UI hosts.</p>
+
+            <h3><code>self_register()</code></h3>
+            <p>Registers the buffer in the specified database. If a duplicate record exists, the registration is skipped, and a debug message is logged.</p>
+        </section>
+        <section id="properties">
+            <h2>Properties</h2>
+            <h3><code>text_buffer</code></h3>
+            <p>
+                <strong>Getter:</strong> Retrieves the current text buffer.<br>
+                <strong>Setter:</strong> Updates the text buffer. Ensures the value is a string and triggers an update.
+            </p>
+            <h3><code>color</code></h3>
+            <p>
+                <strong>Getter:</strong> Retrieves the current text color.<br>
+                <strong>Setter:</strong> Sets the text color. If the color is invalid, reverts to the default color and logs a debug message.
+            </p>
+        </section>
+        <section id="examples">
+            <h2>Examples</h2>
+            <pre><code>buffer = dynamic_text_buffer(name="example", alias="exampleAlias", UIHosts=["host1"], db={})
+
+buffer.text_buffer = "Hello, World!"
+print(buffer.text_buffer)  # Outputs: Hello, World!
+
+buffer.color = "red"
+print(buffer.color)  # Outputs: red
+</code></pre>
+        </section>
+    </main>
+</body>
+</html>
