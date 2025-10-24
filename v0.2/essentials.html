@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -522,6 +523,8 @@ but not run the global function until you hit 'accept' in the keyboard file.
                 <tr><td><a href="#TLP_Loader">TLP_Loader</a></td><td>Used to load a series of TLP Panels by alias.</td></tr>
                 <tr><td><a href="#getDefaultUIHost">getDefaultUIHost</a></td><td>Retrieve the default UIHost (TLP) from the framework configuration.</td></tr>
                 <tr><td><a href="#getUIHostAlias">getUIHostAlias</a></td><td>Used to return the deviceAlias of a button's TLP (UIHost).</td></tr>
+                <tr><td><a href="#cUIDevice">cUIDevice</a></td><td>Enhanced UIDevice subclass that manages TLP connection states and auto-detects panel styles. <strong>(v1.0.2a)</strong></td></tr>
+
             </table>
 
                 <h3 id="TLP_Loader">TLP_Loader</h3>
@@ -579,7 +582,38 @@ but not run the global function until you hit 'accept' in the keyboard file.
                 <p>
                     str or list: The deviceAlias of the button. If returnAsList is True, it is returned as a list, otherwise as a string.
                 </p>
-                <br>
+
+                <h3 id="cUIDevice">cUIDevice <span style="color:gray;">(v1.0.2a)</span></h3>
+<p>
+The <code>cUIDevice</code> class extends Extron’s <code>UIDevice</code> with added intelligence for panel discovery and logging.
+</p>
+<ul>
+    <li>Detects panel type via part number and assigns <code>_PanelStyle</code> automatically.</li>
+    <li>Logs panel details (model, firmware, serial, hostname) using <code>dvTrace</code>.</li>
+    <li>Handles <code>Online</code> and <code>Offline</code> events with automatic state updates.</li>
+</ul>
+ <pre><code class="language-python">cUIDevice(DeviceAlias, PartNumber=None)</code></pre>
+    <table>
+        <tr>
+            <th>Property</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td><code>PanelStyle</code></td>
+            <td>Resolved panel style (or 'Unknown')</td>
+        </tr>
+        <tr>
+            <td><code>Connected</code></td>
+            <td>Boolean connection state (updated from Online/Offline events)</td>
+        </tr>
+        <tr>
+            <td><code>Model</code></td>
+            <td>Returns the model display name (with Virtual style lookup support)</td>
+        </tr>
+    </table>
+    <p><strong>Behavior:</strong> Emits a small diagnostic block via <code>dvTrace</code> on creation and registers an
+        event handler to keep <code>Connected</code> in sync.</p>
+ <br>
                 <hr style="border: 1px solid #000;">
             </section>
 
@@ -625,6 +659,8 @@ but not run the global function until you hit 'accept' in the keyboard file.
                 <tr><td><a href="#BootTimerPunchOut">BootTimerPunchOut</a></td><td>Punches out the boot timer for a given page and completes the loading tracking process.</td></tr>
                 <tr><td><a href="#IpcpInfoBlock">IpcpInfoBlock</a></td><td>Generates a formatted information block for a given Host / processor.</td></tr>
                 <tr><td><a href="#aboutFramework">aboutFramework</a></td><td>Create an 'about' message using a template and substitute values into it.</td></tr>
+
+
             </table>
 
                 <h3 id="consoleWindow">consoleWindow</h3>
@@ -721,7 +757,8 @@ but not run the global function until you hit 'accept' in the keyboard file.
         <br>_Programmers=__framework_config['about']['programmers'],  # List of programmers involved
         <br>_Project=__framework_config['about']['project']  # The name of the project
                 </p>
-                <br>
+          <br>
+
                 <hr style="border: 1px solid #000;">
             </section>
 
@@ -740,6 +777,11 @@ but not run the global function until you hit 'accept' in the keyboard file.
                 <tr><td><a href="#MultiSliderMake">MultiSliderMake</a></td><td>Creates a Slider with the specified name on each desired UIHost panel in the tlpDB.</td></tr>
                 <tr><td><a href="#MultiLabelMake">MultiLabelMake</a></td><td>Creates a Label with the specified name on each desired UIHost panel in the tlpDB.</td></tr>
                 <tr><td><a href="#MultiMESetMake">MultiMESetMake</a></td><td>Creates a unique MESet for each panel defined in UIHosts. If UIHosts is not specified, an MESet is created for every panel in the tlpDB.</td></tr>
+                <tr><td><a href="#cLevel">cLevel</a></td><td>Custom Level class that registers in the host database and improves error handling. <strong>(v1.0.2a)</strong></td></tr>
+<tr><td><a href="#cSlider">cSlider</a></td><td>Custom Slider class with host registration and structured trace feedback. <strong>(v1.0.2a)</strong></td></tr>
+<tr><td><a href="#cLabel">cLabel</a></td><td>Custom Label class that supports cleaner registration and formatted debug output. <strong>(v1.0.2a)</strong></td></tr>
+<tr><td><a href="#cButton">cButton</a></td><td>Custom Button class with state management and enhanced error logging. <strong>(v1.0.2a)</strong></td></tr>
+
             </table>
 
                 <h3 id="MultiButtonMake">MultiButtonMake</h3>
@@ -928,7 +970,150 @@ but not run the global function until you hit 'accept' in the keyboard file.
 
                 <h4>Return Value</h4>
                 <p>None</p>
+
+                <h3 id="cLevel">cLevel <span style="color:gray;">(v1.0.2a)</span></h3>
+                 <pre><code class="language-python">cLevel(UIHost, ID, host_db)</code></pre>
+    <table>
+        <tr>
+            <th>Parameter</th>
+            <th>Type</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td><code>UIHost</code></td>
+            <td>UIDevice</td>
+            <td>The panel / host object</td>
+        </tr>
+        <tr>
+            <td><code>ID</code></td>
+            <td>int</td>
+            <td>Numeric object ID defined in the GUI</td>
+        </tr>
+        <tr>
+            <td><code>host_db</code></td>
+            <td>dict</td>
+            <td>Target dictionary in <code>uiDB</code> (e.g. <code>uiDB['lvl']</code>)</td>
+        </tr>
+    </table>
+    <p><strong>Notes:</strong> Raises a <code>ValueError</code> if <code>host_db</code> is not a dictionary. On creation
+        it registers itself using <code>host_db.setdefault(ID, {})[UIHost.DeviceAlias] = self</code>.</p>
+
+<h3 id="cSlider">cSlider <span style="color:gray;">(v1.0.2a)</span></h3>
+<p>
+The <code>cSlider</code> class extends the Extron <code>Slider</code> class to support host database registration and robust initialization validation.
+</p>
+ <pre><code class="language-python">cSlider(UIHost, ID, host_db)</code></pre>
+    <table>
+        <tr>
+            <th>Parameter</th>
+            <th>Type</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td><code>UIHost</code></td>
+            <td>UIDevice</td>
+            <td>The panel / host object</td>
+        </tr>
+        <tr>
+            <td><code>ID</code></td>
+            <td>int</td>
+            <td>Numeric object ID</td>
+        </tr>
+        <tr>
+            <td><code>host_db</code></td>
+            <td>dict</td>
+            <td>Target dictionary in <code>uiDB</code> (e.g. <code>uiDB['sld']</code>)</td>
+        </tr>
+    </table>
+    <p><strong>Notes:</strong> Uses <code>flag_system_error</code> to record initialization or registration problems.
+    </p>
+
+<h3 id="cLabel">cLabel <span style="color:gray;">(v1.0.2a)</span></h3>
+<p>
+The <code>cLabel</code> class provides a customized Extron <code>Label</code> that adds internal registration logic and improved string representation for debugging.
+</p>
+<pre><code class="language-python">cLabel(UIHost, ID, host_db)</code></pre>
+    <table>
+        <tr>
+            <th>Parameter</th>
+            <th>Type</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td><code>UIHost</code></td>
+            <td>UIDevice</td>
+            <td>The panel / host object</td>
+        </tr>
+        <tr>
+            <td><code>ID</code></td>
+            <td>int</td>
+            <td>Numeric object ID</td>
+        </tr>
+        <tr>
+            <td><code>host_db</code></td>
+            <td>dict</td>
+            <td>Target dictionary in <code>uiDB</code> (e.g. <code>uiDB['lbl']</code>)</td>
+        </tr>
+    </table>
+    <p><strong>Notes:</strong> cLabel supports class-level helper methods that mirror Multi* distro functions (e.g.,
+        <code>.SetTextDistro</code>).</p>
+
+<h3 id="cButton">cButton <span style="color:gray;">(v1.0.2a)</span></h3>
+<p>
+The <code>cButton</code> class enhances Extron’s <code>Button</code> class with better state control, naming, and host-level registration.
+</p>
+<pre><code class="language-python">cButton(UIHost, ID, holdTime=None, repeatTime=None, iState=None, secState=1, name='', host_db=None)</code></pre>
+    <table>
+        <tr>
+            <th>Parameter</th>
+            <th>Type</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td><code>UIHost</code></td>
+            <td>UIDevice</td>
+            <td>The panel / host object</td>
+        </tr>
+        <tr>
+            <td><code>ID</code></td>
+            <td>int</td>
+            <td>Numeric object ID</td>
+        </tr>
+        <tr>
+            <td><code>holdTime</code></td>
+            <td>float</td>
+            <td>Optional hold time for the button</td>
+        </tr>
+        <tr>
+            <td><code>repeatTime</code></td>
+            <td>float</td>
+            <td>Optional repeat interval</td>
+        </tr>
+        <tr>
+            <td><code>iState</code></td>
+            <td>int</td>
+            <td>Initial state</td>
+        </tr>
+        <tr>
+            <td><code>secState</code></td>
+            <td>int</td>
+            <td>Secondary state (default 1)</td>
+        </tr>
+        <tr>
+            <td><code>name</code></td>
+            <td>str</td>
+            <td>Optional human name</td>
+        </tr>
+        <tr>
+            <td><code>host_db</code></td>
+            <td>dict</td>
+            <td>Target dictionary in <code>uiDB</code> (e.g. <code>uiDB['btn']</code>)</td>
+        </tr>
+    </table>
+    <p>  <strong>Notes:</strong> Registers itself using the same <code>host_db.setdefault(...)</code> pattern
+        and logs initialization problems via <code>flag_system_error</code>.</p>
                 <br>
+
                 <hr style="border: 1px solid #000;">
             </section>
 
@@ -943,6 +1128,11 @@ but not run the global function until you hit 'accept' in the keyboard file.
                 <tr><td><a href="#anyBtn">anyBtn</a></td><td>Returns a list of all button objects in uiDB with a given name.</td></tr>
                 <tr><td><a href="#anySlider">anySlider</a></td><td>Returns a list of all slider objects in uiDB with a given name.</td></tr>
                 <tr><td><a href="#anyMESet">anyMESet</a></td><td>Returns a list of all MESet objects in meDB with a given name. Allows monitoring of MESets by name across different panels.</td></tr>
+                <tr><td><a href="#validate_all_panels">validate_all_panels</a></td><td>Validates all connected TLP panels against sandbox configuration to ensure UI consistency. <strong>(v1.0.2a)</strong></td></tr>
+<tr><td><a href="#run_default_gui_event">run_default_gui_event</a></td><td>Executes predefined GUI event sequences at boot or UI load. <strong>(v1.0.2a)</strong></td></tr>
+<tr><td><a href="#auto_gui_event">auto_gui_event</a></td><td>Automates common GUI actions (like default input selection). <strong>(v1.0.2a)</strong></td></tr>
+<tr><td><a href="#load_tlp_panels">load_tlp_panels</a></td><td>Loads and registers all TLP panels defined in sandbox configuration. <strong>(v1.0.2a)</strong></td></tr>
+
             </table>
                 <h3 id="anyBtn">anyBtn</h3>
                 <p>The <code>anyBtn</code> function Retrieves a list of buttons from the tlpDB based on the ui_object_name provided. Returns a list of all button objects in the UI database matching the given name.</p>
@@ -1061,7 +1251,45 @@ Notes:
                 <pre><code class="language python">@event(anyMESet('set_gui_buttons'), 'Pressed'):
   def set_gui_buttons_event(button, state):
       dvPressTrace(button, state)</code></pre>
-                <br>
+
+              <h3 id="validate_all_panels">validate_all_panels <span style="color:gray;">(v1.0.2a)</span></h3>
+<p>
+Validates all TLP panels for duplicates, naming violations, or cross-type conflicts. Produces a structured <code>dvTrace</code> validation summary.
+</p>
+<pre><code class="language-python">validate_all_panels(panels)</code></pre>
+
+
+                <p><strong>Checks performed:</strong></p>
+    <ul>
+        <li>Duplicate IDs used across UI elements (labels/buttons/sliders/levels).</li>
+        <li>Duplicate object names within a type (e.g., two buttons named the same).</li>
+        <li>Flags invalid naming conventions and auto-generated names. Naming prefix conventions (e.g., <code>btn_</code>, <code>lbl_</code>, <code>sld_</code>, <code>lvl_</code>).
+            Auto-generated GUI Designer names (ending with <code>_ID{n}</code>).</li>
+        <li>Logs summary and warnings via <code>dvTrace()</code>.</li>
+    </ul>
+<h3 id="run_default_gui_event">run_default_gui_event <span style="color:gray;">(v1.0.2a)</span></h3>
+                 <p>Executes a preconfigured GUI event sequence after boot or panel load, useful at startup to ensure UI state is synchronized.</p>
+    <pre><code class="language-python">run_default_gui_event(btn_alias, event_func, state='Pressed')</code></pre>
+    <p><strong>Notes:</strong> Picks the first available button object from <code>uiDB['btn']['Panel_Main']</code> and
+        invokes <code>event_func(button, state)</code>. Intended for single-default state initialization.</p>
+
+<h3 id="auto_gui_event">auto_gui_event <span style="color:gray;">(v1.0.2a)</span></h3>
+<p>
+Automatically triggers routine GUI tasks, such as selecting default inputs or refreshing device indicators on startup.
+</p>
+<pre><code class="language-python">@auto_gui_event(anyBtn('btn_example_01'), 'Pressed')
+def my_event(button, state):
+    ...
+</code></pre>
+    <p><strong>Important:</strong> Executes the wrapped logic immediately. The behavior is intentional and used to set default GUI states while modules load.</p>
+
+<h3 id="load_tlp_panels">load_tlp_panels <span style="color:gray;">(v1.0.2a)</span></h3>
+<p>
+Loads and registers all sandbox-defined TLP panels, ensuring proper host mapping, signal binding, and event registration.
+</p>
+<pre><code class="language-python">load_tlp_panels()</code></pre>
+
+<br>
                 <hr style="border: 1px solid #000;">
             </section>
 
