@@ -707,7 +707,7 @@ but not run the global function until you hit 'accept' in the keyboard file.
                 </tr>
                 <tr>
                     <td><a href="#cUIDevice">cUIDevice</a></td>
-                    <td>Manages TLP connection states and auto-detects panel styles. <strong>(v1.0.2a)</strong></td>
+                    <td>Manages TLP connection states and auto-detects panel styles.</td>
                 </tr>
 
             </table>
@@ -794,7 +794,7 @@ but not run the global function until you hit 'accept' in the keyboard file.
                 as a string.
             </p>
 
-            <h3 id="cUIDevice">cUIDevice <span style="color:gray;">(v1.0.2a)</span></h3>
+            <h3 id="cUIDevice">cUIDevice</h3>
             <p>
                 The <code>cUIDevice</code> class extends Extron’s <code>UIDevice</code> enhanced panel style detection,
                 state tracking, and diagnostic logging capabilities. Connection state changes are automatically logged
@@ -1140,23 +1140,19 @@ print(f"Model: {panel.Model}")
                 </tr>
                 <tr>
                     <td><a href="#cLevel">cLevel</a></td>
-                    <td>Custom Level class that registers in the host database and improves error handling. <strong>(v1.0.2a)</strong>
-                    </td>
+                    <td>Custom Level class that registers in the host database and improves error handling.</td>
                 </tr>
                 <tr>
                     <td><a href="#cSlider">cSlider</a></td>
-                    <td>Custom Slider class with host registration and structured trace feedback.
-                        <strong>(v1.0.2a)</strong></td>
+                    <td>Custom Slider class with host registration and structured trace feedback.</td>
                 </tr>
                 <tr>
                     <td><a href="#cLabel">cLabel</a></td>
-                    <td>Custom Label class that supports cleaner registration and formatted debug output. <strong>(v1.0.2a)</strong>
-                    </td>
+                    <td>Custom Label class that supports cleaner registration and formatted debug output.</td>
                 </tr>
                 <tr>
                     <td><a href="#cButton">cButton</a></td>
-                    <td>Custom Button class with state management and enhanced error logging. <strong>(v1.0.2a)</strong>
-                    </td>
+                    <td>Custom Button class with state management and enhanced error logging.</td>
                 </tr>
 
             </table>
@@ -1463,7 +1459,7 @@ print(f"Model: {panel.Model}")
             <h4>Return Value</h4>
             <p>None</p>
 
-            <h3 id="cLevel">cLevel <span style="color:gray;">(v1.0.2a)</span></h3>
+            <h3 id="cLevel">cLevel </h3>
              <p>
                 The <code>cLevel</code> class extends the Extron <code>Level</code> class to ensure instance is registered in the framework
                  so multi-panel utilities can find it.
@@ -1495,7 +1491,7 @@ print(f"Model: {panel.Model}")
             <p> Raises a <code>ValueError</code> if <code>host_db</code> is not a dictionary. On creation
                 it registers itself using <code>host_db.setdefault(ID, {})[UIHost.DeviceAlias] = self</code>.</p>
 
-            <h3 id="cSlider">cSlider <span style="color:gray;">(v1.0.2a)</span></h3>
+            <h3 id="cSlider">cSlider</h3>
             <p>
                 The <code>cSlider</code> class extends the Extron <code>Slider</code> class to support host database
                 registration and robust initialization validation.
@@ -1527,7 +1523,7 @@ print(f"Model: {panel.Model}")
             <p> Uses <code>flag_system_error</code> to record initialization or registration problems.
             </p>
 
-            <h3 id="cLabel">cLabel <span style="color:gray;">(v1.0.2a)</span></h3>
+            <h3 id="cLabel">cLabel</h3>
             <p>
                 The <code>cLabel</code> class extends the Extron <code>Label</code> to internal
                 registration logic and improved string representation for debugging.
@@ -1559,7 +1555,7 @@ print(f"Model: {panel.Model}")
             <p>cLabel supports class-level helper methods that mirror Multi* distro functions (e.g.,
                 <code>.SetTextDistro</code>).</p>
 
-            <h3 id="cButton">cButton <span style="color:gray;">(v1.0.2a)</span></h3>
+            <h3 id="cButton">cButton</h3>
             <p>
                 The <code>cButton</code> class extends the Extron <code>Button</code> class with improved state control,
                 naming, and host-level registration.
@@ -1648,19 +1644,19 @@ print(f"Model: {panel.Model}")
                 <tr>
                     <td><a href="#validate_all_panels">validate_all_panels</a></td>
                     <td>Validates all connected TLP panels against sandbox configuration to ensure UI consistency.
-                        <strong>(v1.0.2a)</strong></td>
+                       </td>
                 </tr>
                 <tr>
                     <td><a href="#run_default_gui_event">run_default_gui_event</a></td>
-                    <td>Executes predefined GUI event sequences at boot or UI load. <strong>(v1.0.2a)</strong></td>
+                    <td>Executes predefined GUI event sequences at boot or UI load.</td>
                 </tr>
                 <tr>
                     <td><a href="#auto_gui_event">auto_gui_event</a></td>
-                    <td>Automates common GUI actions (like default input selection). <strong>(v1.0.2a)</strong></td>
+                    <td>Automates common GUI actions (like default input selection).</td>
                 </tr>
                 <tr>
                     <td><a href="#load_tlp_panels">load_tlp_panels</a></td>
-                    <td>Loads and registers all TLP panels defined in sandbox configuration. <strong>(v1.0.2a)</strong>
+                    <td>Loads and registers all TLP panels defined in sandbox configuration.
                     </td>
                 </tr>
 
@@ -1848,7 +1844,7 @@ Notes:
   def set_gui_buttons_event(button, state):
       dvPressTrace(button, state)</code></pre>
 
-            <h3 id="validate_all_panels">validate_all_panels <span style="color:gray;">(v1.0.2a)</span></h3>
+            <h3 id="validate_all_panels">validate_all_panels</h3>
             <p>
                 Validates all TLP panels for duplicates, naming violations, or cross-type conflicts. Produces a
                 structured <code>dvTrace</code> validation summary.
@@ -1866,7 +1862,7 @@ Notes:
                 </li>
                 <li>Logs summary and warnings via <code>dvTrace()</code>.</li>
             </ul>
-            <h3 id="run_default_gui_event">run_default_gui_event <span style="color:gray;">(v1.0.2a)</span></h3>
+            <h3 id="run_default_gui_event">run_default_gui_event</h3>
             <p>Executes a preconfigured GUI event sequence after boot or panel load, useful at startup to ensure UI
                 state is synchronized.</p>
             <pre><code
@@ -1875,7 +1871,7 @@ Notes:
             <p>Picks the first available button object from <code>uiDB['btn']['Panel_Main']</code> and
                 invokes <code>event_func(button, state)</code>. Intended for single-default state initialization.</p>
 
-            <h3 id="auto_gui_event">auto_gui_event <span style="color:gray;">(v1.0.2a)</span></h3>
+            <h3 id="auto_gui_event">auto_gui_event</h3>
             <p>
                 Automatically triggers routine GUI tasks, such as selecting default inputs or refreshing device
                 indicators on startup.
@@ -1888,7 +1884,7 @@ def my_event(button, state):
             <p>Executes the wrapped logic immediately. The behavior is intentional and used to set default GUI states
                 while modules load.</p>
 
-            <h3 id="load_tlp_panels">load_tlp_panels <span style="color:gray;">(v1.0.2a)</span></h3>
+            <h3 id="load_tlp_panels">load_tlp_panels</h3>
             <p>
                 Loads and registers all sandbox-defined TLP panels, ensuring proper host mapping, signal binding, and
                 event registration.
@@ -1990,7 +1986,7 @@ def my_event(button, state):
                 the specified name to the current button.<br><br>
 
                 This function processes MESet objects for panels filtered by UIHosts. For each panel in the MESet
-                database (meDB),<
+                database (meDB),
                 it retrieves the MESet identified by MESet_name. It then sets that MESet as current based on the
                 provided button_name.
                 If button_name is an integer or None, it is used as an index to set the current MESet. If button_name is
