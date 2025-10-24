@@ -1464,6 +1464,10 @@ print(f"Model: {panel.Model}")
             <p>None</p>
 
             <h3 id="cLevel">cLevel <span style="color:gray;">(v1.0.2a)</span></h3>
+             <p>
+                The <code>cLevel</code> class extends the Extron <code>Level</code> class to ensure instance is registered in the framework
+                 so multi-panel utilities can find it.
+            </p>
             <pre><code class="language-python">cLevel(UIHost, ID, host_db)</code></pre>
             <table>
                 <tr>
@@ -1479,7 +1483,7 @@ print(f"Model: {panel.Model}")
                 <tr>
                     <td><code>ID</code></td>
                     <td>int</td>
-                    <td>Numeric object ID defined in the GUI</td>
+                    <td>Identifier defined in the GUI</td>
                 </tr>
                 <tr>
                     <td><code>host_db</code></td>
@@ -1511,7 +1515,7 @@ print(f"Model: {panel.Model}")
                 <tr>
                     <td><code>ID</code></td>
                     <td>int</td>
-                    <td>Numeric object ID</td>
+                    <td>Identifier for the Slider</td>
                 </tr>
                 <tr>
                     <td><code>host_db</code></td>
@@ -1525,7 +1529,7 @@ print(f"Model: {panel.Model}")
 
             <h3 id="cLabel">cLabel <span style="color:gray;">(v1.0.2a)</span></h3>
             <p>
-                The <code>cLabel</code> class provides a customized Extron <code>Label</code> that adds internal
+                The <code>cLabel</code> class extends the Extron <code>Label</code> to internal
                 registration logic and improved string representation for debugging.
             </p>
             <pre><code class="language-python">cLabel(UIHost, ID, host_db)</code></pre>
@@ -1543,7 +1547,7 @@ print(f"Model: {panel.Model}")
                 <tr>
                     <td><code>ID</code></td>
                     <td>int</td>
-                    <td>Numeric object ID</td>
+                    <td>Identifier for the Label</td>
                 </tr>
                 <tr>
                     <td><code>host_db</code></td>
@@ -1557,7 +1561,7 @@ print(f"Model: {panel.Model}")
 
             <h3 id="cButton">cButton <span style="color:gray;">(v1.0.2a)</span></h3>
             <p>
-                The <code>cButton</code> class enhances Extron’s <code>Button</code> class with better state control,
+                The <code>cButton</code> class extends the Extron <code>Button</code> class with improved state control,
                 naming, and host-level registration.
             </p>
             <pre><code class="language-python">cButton(UIHost, ID, holdTime=None, repeatTime=None, iState=None, secState=1, name='', host_db=None)</code></pre>
@@ -1575,7 +1579,7 @@ print(f"Model: {panel.Model}")
                 <tr>
                     <td><code>ID</code></td>
                     <td>int</td>
-                    <td>Numeric object ID</td>
+                    <td>Identifier for the button</td>
                 </tr>
                 <tr>
                     <td><code>holdTime</code></td>
@@ -1600,12 +1604,12 @@ print(f"Model: {panel.Model}")
                 <tr>
                     <td><code>name</code></td>
                     <td>str</td>
-                    <td>Optional human name</td>
+                    <td>Optional button name</td>
                 </tr>
                 <tr>
                     <td><code>host_db</code></td>
                     <td>dict</td>
-                    <td>Target dictionary in <code>uiDB</code> (e.g. <code>uiDB['btn']</code>)</td>
+                    <td>Dictionary to register this button. Defaults to None.</td>
                 </tr>
             </table>
             <h4> Notes</h4>
